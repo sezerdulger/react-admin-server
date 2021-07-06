@@ -1,0 +1,13 @@
+server:
+  servlet:
+    context-path: /api
+spring:
+  data:
+    mongodb:
+      uri: mongodb://mongodb-server1:27017/genx-base-test
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://localhost:8080
+          
