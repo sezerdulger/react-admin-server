@@ -10,11 +10,11 @@ import com.genx.base.user.model.User;
 
 /**
  * @author SD
- * @date 2021/06/29
+ * @date 2021/07/06
  */
 @Repository
 public interface UserRepository extends PagingAndSortingRepository<User, String> {
 	Optional<User> findByUidIs(String uid);
 	
-	Optional<List<User>> findByUidIn(List<String> uid);
+	void deleteByUid(String uid);
 }

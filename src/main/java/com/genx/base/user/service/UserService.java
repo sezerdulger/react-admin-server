@@ -1,26 +1,31 @@
 package com.genx.base.user.service;
 
-import java.util.List;
-import java.util.UUID;
-import java.util.stream.Collectors;
-
-import org.bson.Document;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.stereotype.*;
+
+import com.genx.base.user.model.*;
+import com.genx.base.user.repository.*;
+
+import java.util.*;
+import java.util.stream.*;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.bson.Document;
+import org.springframework.util.StringUtils;
+import com.genx.base.user.model.SearchQuery;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.support.PageableExecutionUtils;
-import org.springframework.stereotype.Service;
-import org.springframework.util.StringUtils;
-
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.genx.base.user.model.SearchQuery;
-import com.genx.base.user.model.User;
-import com.genx.base.user.repository.UserRepository;
 
 /**
  * @author SD
- * @date 2021/06/29
+ * @date 2021/07/06
  */
 @Service
 public class UserService {
@@ -34,13 +39,17 @@ public class UserService {
 	@Autowired
 	MongoTemplate mongoTemplate;
 	
-    public List<User> findByUids(List<String> uids) {
-		return userRepository.findByUidIn(uids).orElse(null);
+    public User findByUid(String uid) {
+		return userRepository.findByUidIs(uid).orElse(null);
 	}
-	
+    
 	public User save(User user) {
 		user.setUid(UUID.randomUUID().toString());
 		return userRepository.save(user);
+	}
+	
+	public void delete(String uid) {
+		userRepository.deleteByUid(uid);
 	}
 	
 	public Page<User> findByPage(SearchQuery searchQuery) {

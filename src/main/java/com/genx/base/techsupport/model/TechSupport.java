@@ -17,7 +17,7 @@ import java.util.Date;
 
 /**
  * @author SD
- * @date 2021/06/29
+ * @date 2021/07/06
  */
 @Data
 public class TechSupport {
@@ -35,6 +35,8 @@ public class TechSupport {
     private String tel;
 
     private List<String> emails;
+
+    private String authorizedPersonId;
 
     private String authorizedPerson;
 

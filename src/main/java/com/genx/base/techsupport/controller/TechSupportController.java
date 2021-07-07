@@ -19,7 +19,7 @@ import org.springframework.data.domain.Pageable;
 
 /**
  * @author SD
- * @date 2021/06/29
+ * @date 2021/07/06
  */
 @RestController
 @RequestMapping("/techsupport")
@@ -36,6 +36,12 @@ public class TechSupportController {
     @PostMapping
     public ResponseEntity<?> save(@RequestBody TechSupport techsupport) {
 		return ResponseEntity.ok(techsupportService.save(techsupport));
+	}
+	
+	@DeleteMapping("/{uid}")
+    public ResponseEntity<?> delete(@PathVariable String uid) {
+		techsupportService.delete(uid);
+		return ResponseEntity.noContent().build();
 	}
 
 	@PostMapping("/q")

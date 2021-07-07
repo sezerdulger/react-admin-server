@@ -25,7 +25,7 @@ import org.springframework.data.support.PageableExecutionUtils;
 
 /**
  * @author SD
- * @date 2021/06/29
+ * @date 2021/07/06
  */
 @Service
 public class TechSupportService {
@@ -48,8 +48,12 @@ public class TechSupportService {
 		return techsupportRepository.save(techsupport);
 	}
 	
+	public void delete(String uid) {
+		techsupportRepository.deleteByUid(uid);
+	}
+	
 	public Page<TechSupport> findByPage(SearchQuery searchQuery) {
-		String tableName = StringUtils.uncapitalize(TechSupport.class.getSimpleName());
+		String tableName = StringUtils.uncapitalize(TechSupport.class.getSimpleName().toLowerCase());
 		Document ob = new Document("find", tableName);
 		ob.append("filter", searchQuery.getQuery());
 		ob.append("skip", searchQuery.getPage() * searchQuery.getSize());

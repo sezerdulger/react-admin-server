@@ -16,9 +16,11 @@ import java.util.*;
 
 /**
  * @author SD
- * @date 2021/06/29
+ * @date 2021/07/06
  */
 @Repository
 public interface TechSupportRepository extends PagingAndSortingRepository<TechSupport, String> {
 	Optional<TechSupport> findByUidIs(String uid);
+	
+	void deleteByUid(String uid);
 }

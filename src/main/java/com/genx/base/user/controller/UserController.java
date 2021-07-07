@@ -13,14 +13,13 @@ import org.springframework.http.*;
 import com.genx.base.user.model.*;
 import com.genx.base.user.service.*;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import org.springframework.data.domain.Pageable;
 
 /**
  * @author SD
- * @date 2021/06/29
+ * @date 2021/07/06
  */
 @RestController
 @RequestMapping("/user")
@@ -31,14 +30,18 @@ public class UserController {
 	
     @GetMapping(value="/{uid}")
     public ResponseEntity<?> findByUid(@PathVariable String uid) {
-    	List<String> uids = Arrays.asList(uid.split(","));
-    	
-		return ResponseEntity.ok(userService.findByUids(uids));
+		return ResponseEntity.ok(userService.findByUid(uid));
 	}
 
     @PostMapping
     public ResponseEntity<?> save(@RequestBody User user) {
 		return ResponseEntity.ok(userService.save(user));
+	}
+	
+	@DeleteMapping("/{uid}")
+    public ResponseEntity<?> delete(@PathVariable String uid) {
+		userService.delete(uid);
+		return ResponseEntity.noContent().build();
 	}
 
 	@PostMapping("/q")
